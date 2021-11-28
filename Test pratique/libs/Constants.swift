@@ -8,6 +8,6 @@
 import Foundation
 
 class Constants {
-    static let DEFAULT_HEIGHT_IMAGE = 200
-    static let DEFAULT_WIDTH_IMAGE = 150
+    static let DEFAULT_HEIGHT_IMAGE = 250
+    static let DEFAULT_WIDTH_IMAGE = 200
 }

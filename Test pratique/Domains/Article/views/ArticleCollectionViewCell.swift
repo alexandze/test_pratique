@@ -8,40 +8,35 @@
 import UIKit
 
 class ArticleCollectionViewCell: UICollectionViewCell {
-    
-    
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let uiImage = UIImageView()
         uiImage.translatesAutoresizingMaskIntoConstraints = false
-        uiImage.contentMode = .scaleAspectFill
-        uiImage.clipsToBounds = true
-        let image = UIImage(named: "test-image")
-        let imageResized = image?.resizeImage(targetSize: CGSize(width: 100, height: 100))
-        uiImage.image = imageResized
         return uiImage
     }()
     
-    let source: UILabel = {
+    private let source: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Source 1"
-        label.textColor = .red
+        label.textColor = .orange
+        label.numberOfLines = 1
         return label
     }()
     
-    let title: UILabel = {
+    private let title: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "My title"
-        label.textColor = .red
+        label.textColor = .orange
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.numberOfLines = 1
         return label
     }()
     
-    let subTitle: UILabel = {
+    private let subTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "My sub title"
-        label.textColor = .red
+        label.textColor = .orange
+        label.numberOfLines = 2
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return label
     }()
     
@@ -56,6 +51,27 @@ class ArticleCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setTitle(_ text: String?) {
+        self.title.text = text
+    }
+    
+    func setDescription(_ text: String?) {
+        self.subTitle.text = text
+    }
+    
+    func setSource(_ text: String?) {
+        self.source.text = text
+    }
+    
+    func setImageUrl(_ url: String?) {
+        if url == nil {
+            imageView.image = Util.getDefaultImage()
+            return
+        }
+        
+        imageView.load(url: URL(string: url!)!)
     }
     
     private func addAllViewInSubView() {
@@ -83,13 +99,19 @@ class ArticleCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: imageView.bottomAnchor),
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            title.bottomAnchor.constraint(equalTo: subTitle.topAnchor),
+            title.widthAnchor.constraint(equalToConstant: 200),
+            title.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
     
     private func positionDescription() {
         NSLayoutConstraint.activate([
             subTitle.topAnchor.constraint(equalTo: title.bottomAnchor),
-            subTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+            subTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            subTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            subTitle.widthAnchor.constraint(equalToConstant: 200),
+            subTitle.heightAnchor.constraint(equalToConstant: 30),
         ])
     }
 }
