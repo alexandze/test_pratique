@@ -19,9 +19,4 @@ target 'Test pratique' do
     pod 'RxBlocking', '6.2.0'
     pod 'RxTest', '6.2.0'
   end
-
-  target 'Test pratiqueUITests' do
-    # Pods for testing
-  end
-
 end
